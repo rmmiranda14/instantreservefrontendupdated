@@ -4,7 +4,6 @@ import NavbarItem from "./NavbarItem";
 export default function Navbar() {
 	const navLinks = [
 		{ label: "Home", link: "/" },
-		{ label: "About", link: "/about" },
 		{ label: "Support", link: "/support" },
 	];
 	return (
