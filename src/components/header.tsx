@@ -8,6 +8,10 @@ export function Header() {
       <div className="flex items-center">
         <span className="text-2xl font-bold text-red-600">Logo</span>
       </div>
+      <div>
+              <h1 className="text-2xl font-bold">Instant Reserve</h1>
+              <p className="text-sm">Restaurants and Dining</p>
+            </div>
       <div className="flex-1 max-w-md mx-4">
         <div className="relative">
           <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-red-400" />
