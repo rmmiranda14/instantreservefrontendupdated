@@ -7,7 +7,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 export default function RestaurantInformation() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
+      {/*Header }
       <header className="bg-primary p-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
@@ -34,9 +34,9 @@ export default function RestaurantInformation() {
           </div>
         </div>
       </header>
-
+	*/}
       {/* Navigation */}
-      <Tabs defaultValue="location" className="max-w-7xl mx-auto w-full px-4 mt-4">
+      <Tabs defaultValue="location" className="max-w-7xl mx-auto w-full px-4 mt-10">
         <TabsList className="w-full grid grid-cols-4">
           <TabsTrigger value="location">Location</TabsTrigger>
           <TabsTrigger value="time">Time</TabsTrigger>
@@ -124,7 +124,7 @@ export default function RestaurantInformation() {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* Footer 
       <footer className="bg-primary p-8 mt-8">
         <div className="max-w-7xl mx-auto grid grid-cols-4 gap-8 text-center">
           <div>
@@ -137,7 +137,7 @@ export default function RestaurantInformation() {
           <Button variant="link">Support</Button>
         </div>
       </footer>
+		*/}
     </div>
   )
 }
-
