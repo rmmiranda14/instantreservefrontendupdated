@@ -1,13 +1,34 @@
-import { Search } from 'lucide-react'
+'use client'
+
+import { Search, ChevronLeft } from 'lucide-react'
 import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from 'react'
 
-export default function RestaurantInformation() {
+export function RestaurantInformation() {
+  const [selectedTime, setSelectedTime] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const handleTimeSelection = (time: string) => {
+    setSelectedTime(time)
+  }
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log('Searching for:', searchQuery)
+    // Here you would typically make an API call or filter results
+  }
+
+  const times = [
+    '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM',
+    '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM'
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
-      {/*Header }
+      {/* Header
       <header className="bg-primary p-4">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
@@ -15,26 +36,26 @@ export default function RestaurantInformation() {
               <h1 className="text-2xl font-bold">Instant Reserve</h1>
               <p className="text-sm">Restaurants and Dining</p>
             </div>
-            <div className="flex items-center gap-2 max-w-md w-full">
+            <form onSubmit={handleSearch} className="flex items-center gap-2 max-w-md w-full">
               <div className="relative flex-1">
                 <Input
                   placeholder="Search"
                   className="pl-3 pr-10 bg-white"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               </div>
-              <Button
-                size="icon"
-                variant="outline"
-                className="rounded-full bg-white w-10 h-10"
-              >
-                <span className="sr-only">User menu</span>
+              <Button type="submit" size="icon" variant="outline" className="rounded-full bg-white w-10 h-10">
+                <span className="sr-only">Search</span>
+                <Search className="h-4 w-4" />
               </Button>
-            </div>
+            </form>
           </div>
         </div>
       </header>
-	*/}
+      */}
+
       {/* Navigation */}
       <Tabs defaultValue="location" className="max-w-7xl mx-auto w-full px-4 mt-10">
         <TabsList className="w-full grid grid-cols-4">
@@ -80,13 +101,7 @@ export default function RestaurantInformation() {
             </div>
 
             <Button variant="ghost" className="flex items-center gap-2">
-              <Image
-                src="/placeholder.svg"
-                alt="Back arrow"
-                width={24}
-                height={24}
-                className="rotate-180"
-              />
+              <ChevronLeft className="h-4 w-4" />
               Back
             </Button>
           </div>
@@ -94,14 +109,14 @@ export default function RestaurantInformation() {
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <Image
-                src="/placeholder.svg"
+                src="/premium_photo-1661883237884-263e8de8869b.jpeg"
                 alt="Restaurant image 1"
                 width={300}
                 height={200}
                 className="w-full rounded-lg"
               />
               <Image
-                src="/placeholder.svg"
+                src="/photo-1517248135467-4c7edcad34c4.jpeg"
                 alt="Restaurant image 2"
                 width={300}
                 height={200}
@@ -109,17 +124,27 @@ export default function RestaurantInformation() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              {Array.from({ length: 6 }).map((_, i) => (
+            <div className="grid grid-cols-3 gap-4">
+              {times.map((time) => (
                 <Button
-                  key={i}
-                  variant="outline"
-                  className="w-full py-6"
+                  key={time}
+                  variant={selectedTime === time ? "default" : "outline"}
+                  className="w-full py-2"
+                  onClick={() => handleTimeSelection(time)}
                 >
-                  Time
+                  {time}
                 </Button>
               ))}
             </div>
+
+            {selectedTime && (
+              <div className="mt-4 p-4 bg-primary/10 rounded-lg">
+                <p className="text-center font-semibold">
+                  You've selected {selectedTime} for your reservation.
+                </p>
+                <Button className="w-full mt-4">Confirm Reservation</Button>
+              </div>
+            )}
           </div>
         </div>
       </main>
@@ -137,7 +162,10 @@ export default function RestaurantInformation() {
           <Button variant="link">Support</Button>
         </div>
       </footer>
-		*/}
+      */}
     </div>
   )
 }
+
+export default RestaurantInformation
+
