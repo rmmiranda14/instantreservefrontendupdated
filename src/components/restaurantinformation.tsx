@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState } from 'react'
+import Image1 from "@/app/restaurantinformation/Image1.jpeg"
+import Image2 from "@/app/restaurantinformation/Image2.jpeg"
 
 export function RestaurantInformation() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
@@ -109,14 +111,14 @@ export function RestaurantInformation() {
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <Image
-                src="/premium_photo-1661883237884-263e8de8869b.jpeg"
+                src={Image1}
                 alt="Restaurant image 1"
                 width={300}
                 height={200}
                 className="w-full rounded-lg"
               />
               <Image
-                src="/photo-1517248135467-4c7edcad34c4.jpeg"
+                src={Image2}
                 alt="Restaurant image 2"
                 width={300}
                 height={200}
