@@ -4,6 +4,7 @@ import RusticSpoon from "@/app/restaurant-results/Rustic Spoon.png"
 import SpiceFusion from "@/app/restaurant-results/Spice Fusion.png"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import Link from 'next/link'
 
 interface Restaurant {
   id: string
@@ -137,8 +138,8 @@ export default function RestaurantResults() {
                   <h3 className="font-semibold mb-2">Available Reservation Times:</h3>
                   <div className="flex flex-wrap gap-2">
                     {restaurant.reservationTimes.map((time) => (
-                      <Button key={time} variant="outline" size="sm">
-                        {time}
+                      <Button asChild>
+                        <Link href="/login">Login</Link>
                       </Button>
                     ))}
                   </div>

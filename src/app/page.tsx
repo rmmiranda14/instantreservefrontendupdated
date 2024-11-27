@@ -52,7 +52,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter className="pb-6">
                   <Button asChild variant="outline" className="w-full">
-                    <Link href={`/category/${category.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <Link href={`/restaurant-results`}>
                       Explore
                     </Link>
                   </Button>

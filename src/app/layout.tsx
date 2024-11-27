@@ -39,14 +39,14 @@ export default function RootLayout({
     </main>
     <div className="flex flex-col min-h-screen">
       
-{/*       <ThemeProvider
+{       <ThemeProvider
 					attribute="class"
 					defaultTheme="light"
 					enableSystem
 					disableTransitionOnChange
 			>
         
-      </ThemeProvider> */}
+      </ThemeProvider> }
       {children}
       {/* <Navbar /> */}
       <Footer />
