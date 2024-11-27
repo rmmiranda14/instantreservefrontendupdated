@@ -140,9 +140,9 @@ export default function Userpage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="grid lg:grid-cols-5">
+      <div className="min-h-screen flex">
         {/* Sidebar */}
-        <div className="bg-rose-200 p-6 lg:col-span-1">
+        <div className="bg-rose-200 p-6 lg:w-1/5 flex flex-col">
           <div className="flex flex-col items-center space-y-6">
             <Avatar className="h-32 w-32">
               <AvatarImage src="/placeholder.svg" alt="Profile picture" />
@@ -194,7 +194,7 @@ export default function Userpage() {
         </div>
 
         {/* Main Content */}
-        <div className="col-span-4 p-6 space-y-6">
+        <div className="flex-1 p-6 space-y-6">
           {tabContent[activeTab]}
         </div>
       </div>
