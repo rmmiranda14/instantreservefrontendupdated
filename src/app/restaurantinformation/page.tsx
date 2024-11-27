@@ -1,7 +1,7 @@
 export default function RestaurantInformation() {
 	return (
 		<div>
-			<h1><br></br><br>Restaurant Information</br></h1>
+			<h1>Restaurant Information</h1>
 		</div>
 	);
 }

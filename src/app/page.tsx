@@ -1,6 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import businessCollage from "@/app/businesscollage.jpg"
+import RusticSpoon from "@/app/restaurant-results/Rustic Spoon.png"
+import CineMark from "@/images/home/movietheatre.jpg"
+import Spa from "@/images/home/spa.jpg"
+import Entertainment from "@/images/home/entertainment.jpg"
+import Discount from "@/images/home/sale.jpg"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
@@ -15,7 +20,7 @@ export default function Home() {
         <Image
           src= {businessCollage}
           alt="Various reservation experiences"
-          fill 
+          fill
           className="object-cover"
           priority
         />
@@ -40,7 +45,7 @@ export default function Home() {
           <h2 className="text-3xl font-semibold mb-6">Explore Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { name: "Restaurants", icon: Utensils },
+              { name: "Restaurant", icon: Utensils },
               { name: "Movies & Theater", icon: Film },
               { name: "Salons & Spas", icon: Scissors },
               { name: "Live Music", icon: Music },
@@ -51,8 +56,8 @@ export default function Home() {
                   <h3 className="font-semibold text-lg">{category.name}</h3>
                 </CardContent>
                 <CardFooter className="pb-6">
-                  <Button asChild variant="outline" className="w-full">
-                    <Link href={`/restaurant-results`}>
+                  <Button asChild className="w-full">
+                    <Link href={`/${category.name.toLowerCase().replace(/\s+/g, '-')}-results`}>
                       Explore
                     </Link>
                   </Button>
@@ -64,14 +69,14 @@ export default function Home() {
       </section>
 
       {/* Featured Listings Section */}
-      <section className="py-12 px-4 bg-muted">
+      <section className="py-12 px-4 bg-red-100">
         <div className="container mx-auto">
           <h2 className="text-3xl font-semibold mb-6">Featured Listings</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: "The Grand Restaurant", category: "Restaurant", rating: 4.5, image: "/placeholder.svg?height=200&width=300" },
-              { name: "City Theater", category: "Entertainment", rating: 4.7, image: "/placeholder.svg?height=200&width=300" },
-              { name: "Zen Spa Retreat", category: "Spa", rating: 4.6, image: "/placeholder.svg?height=200&width=300" },
+              { name: "The Rustic Spoon", category: "Restaurant", rating: 4.5, image: RusticSpoon },
+              { name: "City Theater", category: "Entertainment", rating: 4.7, image: CineMark},
+              { name: "Zen Spa Retreat", category: "Spa", rating: 4.6, image: Spa },
             ].map((listing) => (
               <Card key={listing.name}>
                 <Image
@@ -109,7 +114,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card className="flex flex-col md:flex-row overflow-hidden">
               <Image
-                src="/placeholder.svg?height=200&width=200"
+                src= {Discount}
                 alt="Restaurant special"
                 width={200}
                 height={200}
@@ -125,7 +130,7 @@ export default function Home() {
             </Card>
             <Card className="flex flex-col md:flex-row overflow-hidden">
               <Image
-                src="/placeholder.svg?height=200&width=200"
+                src={Entertainment}
                 alt="Entertainment special"
                 width={200}
                 height={200}
