@@ -28,31 +28,31 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-    <>
+    
     <html
       lang="en"
       suppressHydrationWarning
       >
     <body>
-    <Header />
-    <main className="container mx-auto mt-8 px-4">
-    </main>
-    <div className="flex flex-col min-h-screen">
-      
-{       <ThemeProvider
+    <ThemeProvider
 					attribute="class"
 					defaultTheme="light"
 					enableSystem
 					disableTransitionOnChange
 			>
-        
-      </ThemeProvider> }
-      {children}
-      {/* <Navbar /> */}
+    <Header />
+    <main className="container mx-auto mt-8 px-4">
+    </main>
+    <div className="flex flex-col min-h-screen">
+      
+
+        {children}
+    
+    
       <Footer />
     </div>
+    </ThemeProvider> 
     </body>
     </html>
-    </>
 	);
 }
