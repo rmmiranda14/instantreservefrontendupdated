@@ -17,8 +17,8 @@ export default function Footer() {
             <Link href="/contactus" className="hover:text-gray-900 transition-colors">
               Contact Us
             </Link>
-            <Link href="/support" className="hover:text-gray-900 transition-colors">
-              Support
+            <Link href="/about-us" className="hover:text-gray-900 transition-colors">
+              About Us
             </Link>
             <Link href="/privacy" className="hover:text-gray-900 transition-colors">
               Privacy

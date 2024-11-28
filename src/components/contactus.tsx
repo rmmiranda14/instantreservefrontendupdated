@@ -62,7 +62,7 @@ export default function ContactUs() {
       </header>
       */}
 
-      {/* Navigation */}
+      {/* Navigation
       <Tabs defaultValue="location" className="max-w-7xl mx-auto w-full px-4 mt-10">
         <TabsList className="w-full grid grid-cols-4">
           <TabsTrigger value="location">Location</TabsTrigger>
@@ -71,10 +71,11 @@ export default function ContactUs() {
           <TabsTrigger value="category">Category</TabsTrigger>
         </TabsList>
       </Tabs>
+      */}
 
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
+        <h2 className="text-2xl font-bold text-center mb-2 mt-2">Contact Us</h2>
         
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6 p-6 border rounded-lg">
           <div className="space-y-2">
