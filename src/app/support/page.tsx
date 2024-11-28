@@ -1,3 +1,5 @@
-export default function SupportPage() {
-	return <div>SupportPage</div>;
+import SupportPage from "@/components/support"
+
+export default function RestaurantsPage() {
+  return <SupportPage />
 }
