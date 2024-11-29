@@ -1,17 +1,20 @@
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Search, User } from 'lucide-react'
+import Link from "next/link"
 
 export function Header() {
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-red-50 border-b border-red-100 fixed top-0 left-0 right-0">
-      <div className="flex items-center">
-        <span className="text-2xl font-bold text-red-600">Logo</span>
-      </div>
-      <div>
-              <h1 className="text-2xl font-bold">Instant Reserve</h1>
-              <p className="text-sm">Restaurants and Dining</p>
-            </div>
+      <Link href="/" className="flex items-center hover:opacity-80">
+        <div className="flex items-center">
+          <span className="text-2xl font-bold text-red-600">Logo</span>
+        </div>
+        </Link>
+        <div className="ml-2">
+          <h1 className="text-2xl font-bold">Instant Reserve</h1>
+          <p className="text-sm">Restaurants and Dining</p>
+        </div>
       <div className="flex-1 max-w-md mx-4">
         <div className="relative">
           <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-red-400" />
@@ -33,3 +36,4 @@ export function Header() {
     </header>
   )
 }
+

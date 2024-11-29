@@ -8,6 +8,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState } from 'react'
 import Image1 from "@/app/restaurantinformation/Image1.jpeg"
 import Image2 from "@/app/restaurantinformation/Image2.jpeg"
+import Link from "next/link"
 
 export function RestaurantInformation() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
@@ -58,7 +59,7 @@ export function RestaurantInformation() {
       </header>
       */}
 
-      {/* Navigation */}
+      {/* Navigation
       <Tabs defaultValue="location" className="max-w-7xl mx-auto w-full px-4 mt-10">
         <TabsList className="w-full grid grid-cols-4">
           <TabsTrigger value="location">Location</TabsTrigger>
@@ -67,10 +68,11 @@ export function RestaurantInformation() {
           <TabsTrigger value="category">Category</TabsTrigger>
         </TabsList>
       </Tabs>
+      */}
 
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        <div className="mb-8">
+        <div className="mb-8 mt-4">
           <h2 className="text-3xl font-bold mb-2">Location Name 1</h2>
           <p className="text-gray-600">Location address Contact Phone Number</p>
         </div>
