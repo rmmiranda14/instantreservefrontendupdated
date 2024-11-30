@@ -26,6 +26,11 @@ export function Header() {
         </div>
       </div>
       <div className="flex items-center">
+        <button className="text-1xl font-bold text-red-600">
+          <Link href="/login-page">Login/Register</Link>
+        </button>
+      </div>
+      <div className="flex items-center">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback className="bg-red-200 text-red-600">
