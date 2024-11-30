@@ -14,7 +14,7 @@ export default function Footer() {
             </address>
           </div>
           <nav className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-xs">
-            <Link href="/contact" className="hover:text-gray-900 transition-colors">
+            <Link href="/contactus" className="hover:text-gray-900 transition-colors">
               Contact Us
             </Link>
             <Link href="/about-us" className="hover:text-gray-900 transition-colors">
