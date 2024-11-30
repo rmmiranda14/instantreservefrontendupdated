@@ -1,5 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Woman1 from "@/images/aboutus/woman1.jpg"
+import Woman2 from "@/images/aboutus/woman2.jpg"
+import Man1 from "@/images/aboutus/man1.jpg"
+import Man2 from "@/images/aboutus/man2.jpg"
+import Building from "@/images/aboutus/buildingview.jpg"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, Clock, Globe, Shield } from 'lucide-react'
@@ -26,9 +31,10 @@ export default function AboutPage() {
         </div>
         <div className="relative h-64 md:h-full">
           <Image
-            src="/placeholder.svg?height=300&width=300"
+            src= {Building}
             alt="InstantReserve team collaborating"
-            fill
+            height={300}
+            width={700}
             className="object-cover rounded-lg"
           />
         </div>
@@ -96,13 +102,13 @@ export default function AboutPage() {
         <h2 className="text-3xl font-semibold text-center">Our Team</h2>
         <div className="grid md:grid-cols-4 gap-8">
           {[
-            { name: "Alex Johnson", role: "CEO & Co-founder", image: "/placeholder.svg?height=300&width=300" },
-            { name: "Samantha Lee", role: "CTO & Co-founder", image: "/placeholder.svg?height=300&width=300" },
-            { name: "Michael Chen", role: "Head of Customer Success", image: "/placeholder.svg?height=300&width=300" },
-            { name: "Emily Rodriguez", role: "Lead Designer", image: "/placeholder.svg?height=300&width=300" },
+            { name: "Alex Johnson", role: "CEO & Co-founder", image: Man1 },
+            { name: "Samantha Lee", role: "CTO & Co-founder", image: Woman1 },
+            { name: "Michael Chen", role: "Head of Customer Success", image: Man2},
+            { name: "Emily Rodriguez", role: "Lead Designer", image: Woman2 },
           ].map((member) => (
             <div key={member.name} className="text-center">
-              <div className="relative h-40 mb-4">
+              <div className="relative h-60 mb-4">
                 <Image
                   src={member.image}
                   alt={member.name}
