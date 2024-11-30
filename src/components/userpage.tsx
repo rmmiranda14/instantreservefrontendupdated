@@ -22,8 +22,8 @@ export default function Userpage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="display-name">Display Name</Label>
-            <Input id="display-name" placeholder="Enter your display name" />
+            <Label htmlFor="display-name">User Name</Label>
+            <Input id="display-name" placeholder="Enter your user name" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="address">Address</Label>
@@ -146,7 +146,7 @@ export default function Userpage() {
           <div className="flex flex-col items-center space-y-6">
             <Avatar className="h-32 w-32">
               <AvatarImage src="/placeholder.svg" alt="Profile picture" />
-              <AvatarFallback>PP</AvatarFallback>
+              <AvatarFallback>Profile Pic</AvatarFallback>
             </Avatar>
             <nav className="flex w-full flex-col space-y-2">
               <Button
