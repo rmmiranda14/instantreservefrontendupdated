@@ -1,7 +1,5 @@
-export default function RestaurantInformation() {
-	return (
-		<div>
-			<h1>Restaurant Information</h1>
-		</div>
-	);
+import Restaurantinformation from "@/components/restaurantinformation"
+
+export default function RestaurantsPage() {
+  return <Restaurantinformation />
 }

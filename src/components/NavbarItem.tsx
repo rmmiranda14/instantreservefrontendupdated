@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* import Link from "next/link";
+=======
+import Link from "next/link";
+>>>>>>> restaurantinformation
 
 interface NavbarItemProps {
 	navLink: {
@@ -15,4 +19,8 @@ export default function NavbarItem({ navLink }: NavbarItemProps) {
 			<button className="mx-2">{navLink.label}</button>
 		</Link>
 	);
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> restaurantinformation

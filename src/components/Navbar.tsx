@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* import Link from "next/link";
+=======
+import Link from "next/link";
+>>>>>>> restaurantinformation
 import NavbarItem from "./NavbarItem";
 
 export default function Navbar() {
@@ -16,4 +20,8 @@ export default function Navbar() {
 			))}
 		</nav>
 	);
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> restaurantinformation
