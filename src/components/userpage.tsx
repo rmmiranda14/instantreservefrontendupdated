@@ -142,7 +142,7 @@ export default function Userpage() {
     <div className="min-h-screen bg-background">
       <div className="min-h-screen flex">
         {/* Sidebar */}
-        <div className="bg-rose-200 p-6 lg:w-1/5 flex flex-col">
+        <div className="bg-red-200 p-6 lg:w-1/5 flex flex-col"> 
           <div className="flex flex-col items-center space-y-6">
             <Avatar className="h-32 w-32">
               <AvatarImage src="/placeholder.svg" alt="Profile picture" />
