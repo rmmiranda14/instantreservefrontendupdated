@@ -28,12 +28,14 @@ export default function Home() {
         <div className="relative z-10 text-center text-white space-y-6">
           <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">Book your next experience</h1>
           <p className="text-xl max-w-2xl mx-auto">Restaurants, entertainment, and more - all in one place</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl mx-auto px-4">
-            <Input placeholder="What are you looking for?" className="w-full sm:w-1/3" />
-            <Input placeholder="Location" className="w-full sm:w-1/3" />
-            <Input type="date" className="w-full sm:w-1/3" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-4xl mx-auto px-4 text-black/40">
+            <Input placeholder="What are you looking for" className="bg-white/70 w-full sm:w-auto" />
+            <Input placeholder="Location" className="bg-white/70 w-full sm:w-auto" />
+            <Input type="date" className="bg-white/70 w-full sm:w-auto" />
             <Button size="lg" className="w-full sm:w-auto">
-              <Search className="mr-2 h-4 w-4" /> Search
+            <Link href={`/restaurant-results`}>
+              <Search className="mr-2 h-4 w-4" /> 
+              </Link>
             </Button>
           </div>
         </div>
@@ -42,22 +44,22 @@ export default function Home() {
       {/* Categories Section */}
       <section className="py-12 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-semibold mb-6">Explore Categories</h2>
+          <h2 className="text-3xl font-semibold mb-6 ">Explore Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { name: "Restaurant", icon: Utensils },
+              { name: "Restaurants", icon: Utensils },
               { name: "Movies & Theater", icon: Film },
               { name: "Salons & Spas", icon: Scissors },
               { name: "Live Music", icon: Music },
             ].map((category) => (
-              <Card key={category.name} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <category.icon className="h-12 w-12 mx-auto mb-4 text-primary" />
-                  <h3 className="font-semibold text-lg">{category.name}</h3>
+              <Card key={category.name} className="text-center hover:shadow-lg transition-shadow bg-white/40 ">
+                <CardContent className="p-6 ">
+                  <category.icon className="h-12 w-12 mx-auto mb-4 text-primary " />
+                  <h3 className="font-semibold text-lg ">{category.name}</h3>
                 </CardContent>
-                <CardFooter className="pb-6">
+                <CardFooter className="pb-6 relative">
                   <Button asChild className="w-full">
-                    <Link href={`/${category.name.toLowerCase().replace(/\s+/g, '-')}-results`}>
+                    <Link href={`/restaurant-results`}>
                       Explore
                     </Link>
                   </Button>
@@ -69,7 +71,7 @@ export default function Home() {
       </section>
 
       {/* Featured Listings Section */}
-      <section className="py-12 px-4 bg-red-100">
+      <section className="py-12 px-4 bg-red-100/40">
         <div className="container mx-auto">
           <h2 className="text-3xl font-semibold mb-6">Featured Listings</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -96,7 +98,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
                   <Button asChild>
-                    <Link href={`/listing/${listing.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <Link href={`/restaurant-results`}>
                       Book Now
                     </Link>
                   </Button>
