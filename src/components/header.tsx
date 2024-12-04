@@ -27,7 +27,7 @@ export function Header() {
       </div>
       <div className="flex items-center">
         <button className="text-1xl font-bold text-red-600">
-          <Link href="/login-page">Login/Register</Link>
+          <Link href="/login-page">Login/SignUp</Link>
         </button>
       </div>
       <div className="flex items-center">
