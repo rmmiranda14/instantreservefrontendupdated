@@ -8,7 +8,7 @@ import { Search, User } from 'lucide-react'
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-red-600/30 border-b static top-0 left-0 right-0">
+    <header className="flex items-center justify-between px-6 py-4 border-b static top-0 left-0 right-0">
       <div className="flex items-center">
         <button className="text-3xl font-bold text-red-700">
           <Link href="/">InstantReserve</Link>
