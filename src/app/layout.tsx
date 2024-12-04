@@ -42,7 +42,7 @@ export default function RootLayout({
 			>
       
     <Header />
-    <main className="container mx-auto mt-8 px-4">
+    <main className="container mx-auto mt-1 px-4">
     </main>
     <div className="flex flex-col min-h-screen">
       

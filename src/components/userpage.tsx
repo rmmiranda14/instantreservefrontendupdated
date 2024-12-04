@@ -140,9 +140,9 @@ export default function Userpage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="min-h-screen flex">
+      <div className="min-h-screen flex px-6 py-6">
         {/* Sidebar */}
-        <div className="bg-rose-200 p-6 lg:w-1/5 flex flex-col">
+        <div className="bg-rose-600/50 p-6 lg:w-1/5 flex flex-col ">
           <div className="flex flex-col items-center space-y-6">
             <Avatar className="h-32 w-32">
               <AvatarImage src="/placeholder.svg" alt="Profile picture" />
@@ -198,27 +198,6 @@ export default function Userpage() {
           {tabContent[activeTab]}
         </div>
       </div>
-
-      {/* Footer }
-      <footer className="bg-rose-200 p-6">
-        <div className="container mx-auto grid grid-cols-4 gap-4 text-sm">
-          <div>
-            <p>1234 Address St</p>
-            <p>San Diego, California</p>
-            <p>619-123-4567</p>
-          </div>
-          <div className="text-center">
-            <Button variant="link">Contact Us</Button>
-          </div>
-          <div className="text-center">
-            <Button variant="link">Privacy</Button>
-          </div>
-          <div className="text-center">
-            <Button variant="link">Support</Button>
-          </div>
-        </div>
-      </footer>
-      */}
     </div>
   )
 }

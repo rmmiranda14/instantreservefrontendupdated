@@ -35,11 +35,16 @@ export function Header() {
         </button>
       </div>
       <div className="flex items-center">
+        
         <Avatar>
+        <button className="flex items-center">
+        <Link href="/userpage">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback className="bg-red-200 text-red-600">
             <User className="h-4 w-4" />
           </AvatarFallback>
+          </Link>
+          </button>
         </Avatar>
       </div>
     </header>
