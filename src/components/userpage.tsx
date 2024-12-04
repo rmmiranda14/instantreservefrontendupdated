@@ -140,9 +140,9 @@ export default function Userpage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="min-h-screen flex px-6 py-6">
+      <div className="min-h-screen flex px-0 py-0">
         {/* Sidebar */}
-        <div className="bg-rose-600/50 p-6 lg:w-1/5 flex flex-col ">
+        <div className="bg-red-600/30 p-6 lg:w-1/5 flex flex-col ">
           <div className="flex flex-col items-center space-y-6">
             <Avatar className="h-32 w-32">
               <AvatarImage src="/placeholder.svg" alt="Profile picture" />
