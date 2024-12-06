@@ -3,13 +3,13 @@
 import Link from "next/link";
 import validToken from "@/components/validtoken"
 import Logout from '@/components/logout'
-import { useEffect } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { User } from 'lucide-react'
-import { Header } from '@/components/header'
-import { AuthButton } from '@/components/auth-button'
+
+
 
 export function UserIcon(){ 
+  
     if (validToken()) {
         return (
         <div className="flex items-left">
@@ -38,6 +38,7 @@ export function UserIcon(){
           <button className="text-1xl font-bold text-red-600">
             <Link href="/login-page">Login/SignUp</Link>
           </button>
+          
         </div>
         )
       

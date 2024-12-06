@@ -35,7 +35,7 @@ export default function LoginPage() {
       localStorage.setItem('access_token', data.access_token);
 
       // Save the current user
-      localStorage.setItem('loggedinuser',data)
+      localStorage.setItem('user_id',data.id)
 
       // Redirect to a protected page or dashboard
       router.push('/');

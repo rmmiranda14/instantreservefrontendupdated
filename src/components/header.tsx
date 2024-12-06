@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { ModeToggle } from '@/components/modetoggle'
 import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Search, User } from 'lucide-react'
-import validToken from '@/components/validtoken'
 import { UserIcon } from '@/components/usericon'
+import { AuthButton } from '@/components/auth-button'
 
 
 export function Header() {
@@ -34,7 +33,7 @@ export function Header() {
       </div>
       <div className="flex items-center">
        <UserIcon />
-      
+      <AuthButton />
       </div>
     </header>
   )
