@@ -32,7 +32,7 @@ export default function LoginPage() {
       const data = await response.json();
 
       // Save the access token
-      localStorage.setItem('token', data.access_token);
+      localStorage.setItem('access_token', data.access_token);
 
       // Redirect to a protected page or dashboard
       router.push('/');

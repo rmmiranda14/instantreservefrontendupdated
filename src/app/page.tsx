@@ -13,6 +13,7 @@ import { Search, Calendar, Star, Utensils, Film, Scissors, Music, Book } from 'l
 
 
 export default function Home() {
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}

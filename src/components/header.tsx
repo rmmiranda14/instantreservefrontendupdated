@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Image from "next/image"
-import Logo from "@/images/InstantReserveLogo.png"
 import { ModeToggle } from '@/components/modetoggle'
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Search, User } from 'lucide-react'
+import validToken from '@/components/validtoken'
+import { UserIcon } from '@/components/usericon'
 
 export function Header() {
   return (
@@ -30,22 +30,7 @@ export function Header() {
         </div>
       </div>
       <div className="flex items-center">
-        <button className="text-1xl font-bold text-red-600">
-          <Link href="/login-page">Login/SignUp</Link>
-        </button>
-      </div>
-      <div className="flex items-center">
-        
-        <Avatar>
-        <button className="flex items-center">
-        <Link href="/userpage">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback className="bg-red-200 text-red-600">
-            <User className="h-4 w-4" />
-          </AvatarFallback>
-          </Link>
-          </button>
-        </Avatar>
+       <UserIcon />
       </div>
     </header>
   )
