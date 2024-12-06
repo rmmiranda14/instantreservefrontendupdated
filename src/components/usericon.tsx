@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { User } from 'lucide-react'
 import { Header } from '@/components/header'
+import { AuthButton } from '@/components/auth-button'
 
 export function UserIcon(){ 
     if (validToken()) {
@@ -21,7 +22,7 @@ export function UserIcon(){
         </button>
         <Avatar>
             <button>
-            <Link href="/protected-userpage">
+            <Link href="/userpage">
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback className="bg-red-200 text-red-600">
                 <User className="h-4 w-4" />

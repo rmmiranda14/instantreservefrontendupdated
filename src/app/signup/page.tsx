@@ -1,5 +1,5 @@
 import SignUpPage from "@/components/signup"
 
-export default function RestaurantsPage() {
+export default function SignUp() {
   return <SignUpPage/>
 }

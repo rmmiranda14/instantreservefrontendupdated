@@ -10,8 +10,7 @@ export default function validToken() {
   const [isValidToken, setIsValidToken] = useState<boolean | null>(null)
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('access_token')
-    setIsValidToken(validateToken(accessToken))
+    setIsValidToken(validateToken(localStorage.getItem('access_token')))
   }, [])
   return isValidToken
 }

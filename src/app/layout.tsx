@@ -5,8 +5,6 @@ import Footer from "@/components/footer";
 import { Header } from "@/components/header"
 import { RootProviders } from '@/providers/RootProviders';
 import { Toaster } from 'react-hot-toast'
-import InitializeToken from  '@/components/initializetoken'
-
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",

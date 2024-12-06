@@ -1,8 +1,7 @@
 'use client' 
 
 import Userpage from "@/components/userpage"
-import validToken from '@/components/validtoken'
 
-export default function RestaurantsPage() {
+export default function UserPage() {
   return <Userpage />
 }

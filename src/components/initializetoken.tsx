@@ -2,5 +2,7 @@
 
 export default function InitializeToken() {
     localStorage.setItem('access_token', '');
-    return null;
+    return (
+        <div></div>
+    );
 }

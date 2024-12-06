@@ -1,3 +1,5 @@
+'user client'
+
 import Link from "next/link";
 import { ModeToggle } from '@/components/modetoggle'
 import { Input } from "@/components/ui/input"
@@ -5,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Search, User } from 'lucide-react'
 import validToken from '@/components/validtoken'
 import { UserIcon } from '@/components/usericon'
+
 
 export function Header() {
   return (
@@ -31,6 +34,7 @@ export function Header() {
       </div>
       <div className="flex items-center">
        <UserIcon />
+      
       </div>
     </header>
   )

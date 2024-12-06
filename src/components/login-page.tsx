@@ -20,7 +20,7 @@ export default function LoginPage() {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          username, // Use email as the username field
+          username,
           password,
         }),
       });
@@ -33,6 +33,9 @@ export default function LoginPage() {
 
       // Save the access token
       localStorage.setItem('access_token', data.access_token);
+
+      // Save the current user
+      localStorage.setItem('loggedinuser',data)
 
       // Redirect to a protected page or dashboard
       router.push('/');
@@ -56,7 +59,7 @@ export default function LoginPage() {
           <div>
             <input
               type="text"
-              placeholder="Username or Email address"
+              placeholder="Username"
               className="w-full px-3 py-2 border rounded-md"
               value={username}
               onChange={(e) => setUsername(e.target.value)}

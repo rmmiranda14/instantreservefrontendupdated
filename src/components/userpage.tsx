@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Bell, CreditCard, Lock, Settings, User } from 'lucide-react'
+import ProtectedUserPage from "@/components/protected-userpage"
 
 type TabName = 'account' | 'payment' | 'notifications' | 'security' | 'accessibility';
 
@@ -139,7 +140,9 @@ export default function Userpage() {
   }
 
   return (
+    
     <div className="min-h-screen bg-background">
+      <ProtectedUserPage />
       <div className="min-h-screen flex px-6 py-6">
         {/* Sidebar */}
         <div className="bg-rose-600/50 p-6 lg:w-1/5 flex flex-col ">
