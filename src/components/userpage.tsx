@@ -14,6 +14,7 @@ type TabName = 'account' | 'payment' | 'notifications' | 'security' | 'accessibi
 
 export default function Userpage() {
   const [activeTab, setActiveTab] = useState<TabName>('account')
+  const email = localStorage.getItem('email')
 
   const tabContent: Record<TabName, React.ReactNode> = {
     account: (
@@ -23,15 +24,15 @@ export default function Userpage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="display-name">User Name</Label>
+            <Label htmlFor="display-name">{localStorage.getItem('username')}</Label>
             <Input id="display-name" placeholder="Enter your user name" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
+            <Label htmlFor="address">{localStorage.getItem('email')}</Label>
             <Input id="address" placeholder="Enter your address" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="phone">Preferred Phone Number</Label>
+            <Label htmlFor="phone">{localStorage.getItem('phone')}</Label>
             <Input id="phone" type="tel" placeholder="Enter your phone number" />
           </div>
         </CardContent>

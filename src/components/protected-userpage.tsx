@@ -19,7 +19,7 @@ export default function ProtectedUserPage() {
           <Link href="/login-page">
           <CardContent>
             <p className="text-center mb-4">You do not have a valid access token.</p>
-            <Button className="w-full" onClick={() => {/* Implement login logic */}}>
+            <Button className="w-full">
               Log In
             </Button>
           </CardContent>

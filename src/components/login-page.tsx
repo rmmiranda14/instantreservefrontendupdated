@@ -34,8 +34,24 @@ export default function LoginPage() {
       // Save the access token
       localStorage.setItem('access_token', data.access_token);
 
-      // Save the current user
-      localStorage.setItem('user_id',data.id)
+      const secondresponse = await fetch('http://127.0.0.1:8000/users/me', {
+        method: 'GET',
+        headers: {
+          'Authorization': ' Bearer ' + data.access_token,
+        },
+      });
+      
+      if (!secondresponse.ok) {
+        throw new Error('Invalid user');
+      }
+
+      const moredata = await secondresponse.json();
+
+      // Save the current user information
+      localStorage.setItem('user_id',moredata.id)
+      localStorage.setItem('username',moredata.username)
+      localStorage.setItem('email',moredata.email)
+      localStorage.setItem('phone',moredata.phone)
 
       // Redirect to a protected page or dashboard
       router.push('/');
