@@ -115,7 +115,7 @@ const restaurants: Restaurant[] = [
 export default function RestaurantResults() {
     return (
       <div className="container mx-auto py-8">
-        <h1 className="text-red-600 text-3xl font-bold mb-6">Restaurant Results</h1>
+        <h1 className="text-3xl font-bold mb-6">Restaurant Results</h1>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {restaurants.map((restaurant) => (
             <Card key={restaurant.id} className="overflow-hidden bg-white/10">

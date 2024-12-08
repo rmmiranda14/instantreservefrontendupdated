@@ -49,7 +49,6 @@ export default function LoginPage() {
       // Save the access token
       localStorage.setItem('token', data.access_token);
 
-      // Redirect to a protected page or dashboard
       window.location.replace('/')
 
     } catch (err) {
@@ -63,7 +62,7 @@ export default function LoginPage() {
   return (
     <main className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md space-y-6">
-        <h2 className="text-3xl font-extrabold text-gray-900 text-center">
+        <h2 className="text-3xl font-extrabold text-center">
           Sign in to your account
         </h2>
         {error && <p className="text-red-500">{error}</p>}

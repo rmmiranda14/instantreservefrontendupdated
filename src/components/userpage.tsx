@@ -11,7 +11,14 @@ import { Bell, CreditCard, Lock, Settings, User, Calendar } from 'lucide-react';
 
 type TabName = 'account' | 'reservations' | 'payment' | 'notifications' | 'security' | 'accessibility';
 
+const isLoggedIn = async () => {
+  if(!localStorage.getItem('token')){
+    window.location.replace('/login-page')
+  }
+}
+
 export default function Userpage() {
+  isLoggedIn();
   const [activeTab, setActiveTab] = useState<TabName>('account');
   const [userData, setUserData] = useState<any>(null);
   const [reservations, setReservations] = useState<any[]>([]);
@@ -77,6 +84,7 @@ export default function Userpage() {
     } catch (error) {
       console.error('Failed to update user:', error);
     }
+    window.location.replace('/')
   };
 
   useEffect(() => {
