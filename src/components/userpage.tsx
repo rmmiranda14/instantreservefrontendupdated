@@ -23,6 +23,8 @@ export default function Userpage() {
   const [userData, setUserData] = useState<any>(null);
   const [reservations, setReservations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); 
   
   
 
@@ -65,7 +67,7 @@ export default function Userpage() {
   const updateUser = async (updatedData: any) => {
     const token = localStorage.getItem('token');
     if (!token) return;
-
+  
     try {
       const response = await fetch(`http://127.0.0.1:8000/users/api/users/${userData.id}`, {
         method: 'PUT',
@@ -75,14 +77,18 @@ export default function Userpage() {
         },
         body: JSON.stringify(updatedData),
       });
+  
       if (response.ok) {
-        alert('User information updated successfully.');
-        fetchUserData();
+        setConfirmationMessage('User information updated successfully.'); // Set success message
+        setErrorMessage(null); // Clear error message if any
+        fetchUserData(); // Refresh user data
       } else {
-        alert('Failed to update user information.');
+        setErrorMessage('Failed to update user information.'); // Set error message
+        setConfirmationMessage(null); // Clear success message if any
       }
     } catch (error) {
-      console.error('Failed to update user:', error);
+      setErrorMessage('Failed to update user information.'); // Handle error
+      setConfirmationMessage(null); // Clear success message if any
     }
     window.location.replace('/')
   };
@@ -99,6 +105,16 @@ export default function Userpage() {
           <CardTitle>Account Preferences</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+          {confirmationMessage && (
+            <div className="p-4 mb-4 text-green-800 bg-green-200 rounded-lg">
+              {confirmationMessage}
+            </div>
+          )}
+          {errorMessage && (
+            <div className="p-4 mb-4 text-red-800 bg-red-200 rounded-lg">
+              {errorMessage}
+            </div>
+          )}
           {loading ? (
             <p>Loading user information...</p>
           ) : (
