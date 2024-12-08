@@ -1,18 +1,88 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { Bell, CreditCard, Lock, Settings, User } from 'lucide-react'
+import { useEffect, useState } from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Bell, CreditCard, Lock, Settings, User, Calendar } from 'lucide-react';
 
-type TabName = 'account' | 'payment' | 'notifications' | 'security' | 'accessibility';
+type TabName = 'account' | 'reservations' | 'payment' | 'notifications' | 'security' | 'accessibility';
 
 export default function Userpage() {
-  const [activeTab, setActiveTab] = useState<TabName>('account')
+  const [activeTab, setActiveTab] = useState<TabName>('account');
+  const [userData, setUserData] = useState<any>(null);
+  const [reservations, setReservations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  
+
+  const fetchUserData = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/users/me', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchReservations = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/reservations/reservations/user', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setReservations(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch reservations:', error);
+    }
+  };
+
+  const updateUser = async (updatedData: any) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/users/api/users/${userData.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedData),
+      });
+      if (response.ok) {
+        alert('User information updated successfully.');
+        fetchUserData();
+      } else {
+        alert('Failed to update user information.');
+      }
+    } catch (error) {
+      console.error('Failed to update user:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+    fetchReservations();
+  }, []);
 
   const tabContent: Record<TabName, React.ReactNode> = {
     account: (
@@ -21,18 +91,60 @@ export default function Userpage() {
           <CardTitle>Account Preferences</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="display-name">User Name</Label>
-            <Input id="display-name" placeholder="Enter your user name" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
-            <Input id="address" placeholder="Enter your address" />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="phone">Preferred Phone Number</Label>
-            <Input id="phone" type="tel" placeholder="Enter your phone number" />
-          </div>
+          {loading ? (
+            <p>Loading user information...</p>
+          ) : (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="username">User Name</Label>
+                <Input
+                  id="username"
+                  defaultValue={userData?.username || ''}
+                  placeholder="Enter your username"
+                  onChange={(e) => setUserData({ ...userData, username: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  defaultValue={userData?.email || ''}
+                  placeholder="Enter your email"
+                  onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Preferred Phone Number</Label>
+                <Input
+                  id="phone"
+                  defaultValue={userData?.phone || ''}
+                  placeholder="Enter your phone number"
+                  onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
+                />
+              </div>
+              <Button onClick={() => updateUser(userData)}>Update User Information</Button>
+            </>
+          )}
+        </CardContent>
+      </Card>
+    ),
+    reservations: (
+      <Card>
+        <CardHeader>
+          <CardTitle>Your Reservations</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {reservations.length === 0 ? (
+            <p>You have no reservations.</p>
+          ) : (
+            reservations.map((reservation, index) => (
+              <div key={index} className="border p-4 rounded">
+                <p>Reservation Time: {reservation.reservation_time}</p>
+                <p>Party Size: {reservation.party_size}</p>
+                <p>Created At: {reservation.creation_date}</p>
+              </div>
+            ))
+          )}
         </CardContent>
       </Card>
     ),
@@ -67,16 +179,16 @@ export default function Userpage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between">
-            <Label htmlFor="email-notifications">Email Notifications</Label>
-            <Switch id="email-notifications" />
+            <Label>Email Notifications</Label>
+            <Switch />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="push-notifications">Push Notifications</Label>
-            <Switch id="push-notifications" />
+            <Label>Push Notifications</Label>
+            <Switch />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="sms-notifications">SMS Notifications</Label>
-            <Switch id="sms-notifications" />
+            <Label>SMS Notifications</Label>
+            <Switch />
           </div>
         </CardContent>
       </Card>
@@ -101,8 +213,8 @@ export default function Userpage() {
           </div>
           <Button>Update Password</Button>
           <div className="flex items-center justify-between">
-            <Label htmlFor="two-factor">Enable Two-Factor Authentication</Label>
-            <Switch id="two-factor" />
+            <Label>Enable Two-Factor Authentication</Label>
+            <Switch />
           </div>
         </CardContent>
       </Card>
@@ -114,29 +226,29 @@ export default function Userpage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="text-size">Text Size</Label>
-            <Input id="text-size" type="range" min="12" max="24" />
+            <Label>Text Size</Label>
+            <Input type="range" min="12" max="24" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="color-mode">Color Mode</Label>
-            <Input id="color-mode" placeholder="Select color mode" />
+            <Label>Color Mode</Label>
+            <Input placeholder="Select color mode" />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="dark-mode">Dark Mode Enabled?</Label>
-            <Switch id="dark-mode" />
+            <Label>Dark Mode Enabled?</Label>
+            <Switch />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="high-contrast">High Contrast Mode</Label>
-            <Switch id="high-contrast" />
+            <Label>High Contrast Mode</Label>
+            <Switch />
           </div>
           <div className="flex items-center justify-between">
-            <Label htmlFor="reduce-motion">Reduce Motion</Label>
-            <Switch id="reduce-motion" />
+            <Label>Reduce Motion</Label>
+            <Switch />
           </div>
         </CardContent>
       </Card>
     ),
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -156,6 +268,14 @@ export default function Userpage() {
               >
                 <User className="mr-2 h-4 w-4" />
                 Account
+              </Button>
+              <Button
+                variant={activeTab === 'reservations' ? 'secondary' : 'ghost'}
+                className="w-full justify-start"
+                onClick={() => setActiveTab('reservations' as TabName)}
+              >
+                <Calendar className="mr-2 h-4 w-4" />
+                Reservations
               </Button>
               <Button
                 variant={activeTab === 'payment' ? 'secondary' : 'ghost'}
@@ -194,11 +314,8 @@ export default function Userpage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-6 space-y-6">
-          {tabContent[activeTab]}
-        </div>
+        <div className="flex-1 p-6 space-y-6">{tabContent[activeTab]}</div>
       </div>
     </div>
-  )
+  );
 }
-
