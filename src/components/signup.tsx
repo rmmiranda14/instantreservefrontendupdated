@@ -13,6 +13,14 @@ export default function SignUpPage() {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+
+    if (/^\d*$/.test(input)) {
+      setPhone(input);
+    }
+  };
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -28,7 +36,7 @@ export default function SignUpPage() {
           username,
           email,
           fullname,
-          phone,
+          phone: parseInt(phone, 10), // Convert to integer before sending
           password,
         }),
       });
@@ -99,7 +107,7 @@ export default function SignUpPage() {
               placeholder="Phone Number"
               className="w-full px-3 py-2 border rounded-md"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={handlePhoneChange} // Ensure only numbers are entered
               required
             />
           </div>
