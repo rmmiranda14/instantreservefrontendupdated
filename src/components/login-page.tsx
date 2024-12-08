@@ -4,14 +4,29 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
+export const clearCache =  (reloadAfterClear = true) => {
+  if('caches' in window){
+      caches.keys().then((names) => {
+          names.forEach(async (name) => {
+              await caches.delete(name)
+          })
+      })
+
+      if(reloadAfterClear)
+          window.location.reload()
+  }
+}
+
 export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null) // Allow both string and null
   const router = useRouter()
 
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    
 
     try {
       const response = await fetch('http://127.0.0.1:8000/users/token', {
@@ -35,7 +50,8 @@ export default function LoginPage() {
       localStorage.setItem('token', data.access_token);
 
       // Redirect to a protected page or dashboard
-      router.push('/');
+      window.location.replace('/')
+
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -44,7 +60,6 @@ export default function LoginPage() {
       }
     }
   };
-
   return (
     <main className="flex items-center justify-center min-h-screen">
       <div className="w-full max-w-md space-y-6">
@@ -75,7 +90,7 @@ export default function LoginPage() {
           </div>
           <button type="submit" className="w-full py-2 text-white bg-red-600 rounded-md">
             Sign in
-          </button>
+          </button >
         </form>
         <p className="text-center text-sm text-gray-600">
           Don’t have an account?{' '}

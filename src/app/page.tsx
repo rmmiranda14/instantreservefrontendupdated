@@ -14,6 +14,7 @@ import { Search, Calendar, Star, Utensils, Film, Scissors, Music, Book } from 'l
 
 export default function Home() {
   return (
+    
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[500px] flex items-center justify-center">
