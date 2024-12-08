@@ -165,7 +165,16 @@ export default function Userpage() {
               <div key={index} className="border p-4 rounded">
                 <p>Reservation Time: {reservation.reservation_time}</p>
                 <p>Party Size: {reservation.party_size}</p>
-                <p>Created At: {reservation.creation_date}</p>
+                <p>Created At:{" "}
+      {new Date(reservation.creation_date).toLocaleString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      })}
+    </p>
               </div>
             ))
           )}
