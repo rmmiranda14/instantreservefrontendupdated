@@ -11,14 +11,8 @@ import { Bell, CreditCard, Lock, Settings, User, Calendar } from 'lucide-react';
 
 type TabName = 'account' | 'reservations' | 'payment' | 'notifications' | 'security' | 'accessibility';
 
-const isLoggedIn = async () => {
-  if(!localStorage.getItem('token')){
-    window.location.replace('/login-page')
-  }
-}
 
 export default function Userpage() {
-  isLoggedIn();
   const [activeTab, setActiveTab] = useState<TabName>('account');
   const [userData, setUserData] = useState<any>(null);
   const [reservations, setReservations] = useState<any[]>([]);
@@ -26,6 +20,14 @@ export default function Userpage() {
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null); 
   
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.replace("/login-page");
+      }
+    }
+  }, []);
   
 
   const fetchUserData = async () => {
@@ -62,6 +64,93 @@ export default function Userpage() {
     } catch (error) {
       console.error('Failed to fetch reservations:', error);
     }
+  };
+
+  const handleEditReservation = async (reservation: any) => {
+    const updatedTime = prompt(
+      "Enter new reservation time (e.g., 2000 for 8:00 PM):",
+      reservation.reservation_time
+    );
+  
+    if (!updatedTime) {
+      setErrorMessage("Update canceled.");
+      setConfirmationMessage(null);
+      window.location.replace("/userpage");
+      return;
+    }
+  
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setErrorMessage("You must be logged in to update a reservation.");
+      setConfirmationMessage(null);
+      return;
+    }
+  
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/reservations/api/reservation/${reservation.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            reservation_time: parseInt(updatedTime), // Only send the updated reservation time
+          }),
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Failed to update reservation.");
+      }
+  
+      const updatedReservation = await response.json();
+  
+      // Update only the reservation time in the state
+      setReservations((prevReservations) =>
+        prevReservations.map((res) =>
+          res.id === reservation.id ? updatedReservation : res
+        )
+      );
+  
+      setConfirmationMessage("Reservation time updated successfully.");
+      setErrorMessage(null);
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Failed to update reservation time.");
+      setConfirmationMessage(null);
+    }
+    window.location.replace("/userpage");
+  };
+
+  const handleCancelReservation = (reservationId: number) => {
+    if (!confirm("Are you sure you want to cancel this reservation?")) return;
+  
+    const token = localStorage.getItem("token");
+    if (!token) return;
+  
+    fetch(`http://127.0.0.1:8000/reservations/api/reservation/${reservationId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to cancel reservation.");
+        }
+        return response.json();
+      })
+      .then(() => {
+        setConfirmationMessage("Reservation canceled successfully.");
+        fetchReservations(); // Refresh reservations
+        window.location.replace("/userpage");
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Failed to cancel reservation.");
+      });
   };
 
   const updateUser = async (updatedData: any) => {
@@ -158,23 +247,61 @@ export default function Userpage() {
           <CardTitle>Your Reservations</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+      {/* Success or Error Messages */}
+      {confirmationMessage && (
+        <div className="p-4 mb-4 text-green-800 bg-green-200 rounded-lg">
+          {confirmationMessage}
+        </div>
+      )}
+      {errorMessage && (
+        <div className="p-4 mb-4 text-red-800 bg-red-200 rounded-lg">
+          {errorMessage}
+        </div>
+      )}
           {reservations.length === 0 ? (
             <p>You have no reservations.</p>
           ) : (
             reservations.map((reservation, index) => (
-              <div key={index} className="border p-4 rounded">
-                <p>Reservation Time: {reservation.reservation_time}</p>
+              <div key={index} className="border p-4 rounded space-y-2">
+                <p>
+                  Reservation Time:{" "}
+                  {(() => {
+                    const time = reservation.reservation_time;
+                    const hours = Math.floor(time / 100);
+                    const minutes = time % 100;
+                    const period = hours >= 12 ? "PM" : "AM";
+                    const formattedHours = hours % 12 || 12; // Convert 0-hour to 12-hour format
+                    const formattedMinutes = minutes.toString().padStart(2, "0");
+                    return `${formattedHours}:${formattedMinutes} ${period}`;
+                  })()}
+                </p>
                 <p>Party Size: {reservation.party_size}</p>
-                <p>Created At:{" "}
-      {new Date(reservation.creation_date).toLocaleString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      })}
-    </p>
+                <p>
+                  Created At:{" "}
+                  {new Date(reservation.creation_date).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                </p>
+                {/* Buttons for Edit and Cancel */}
+                <div className="flex gap-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => handleEditReservation(reservation)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={() => handleCancelReservation(reservation.id)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
               </div>
             ))
           )}
