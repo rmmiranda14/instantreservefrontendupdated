@@ -64,22 +64,24 @@ export function Header() {
     return (
     <header className="flex items-center justify-between px-6 py-4 border-b static top-0 left-0 right-0">
       <div className="flex items-center">
+        <div>
         <button className="text-3xl font-bold text-red-700">
           <Link href="/">InstantReserve</Link>
         </button>
       </div>
       <div className="flex-1 max-w-md mx-4">
         <ModeToggle />
+        </div>
       </div>
-      <div className="flex-1 max-w-md mx-4">
-        <div className="relative">
+      <div className="flex-1 max-w-md mx-15">
+        <div className="relative items-center">
           <Link href={`/restaurant-results`}>
             <Search className="absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-red-300" />
           </Link>
           <Input
             type="search"
             placeholder="Search..."
-            className="pl-8 bg-white border-red-200 focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
+            className="pl-12 bg-white border-red-200 focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
           />
         </div>
       </div>
@@ -96,9 +98,8 @@ export function Header() {
             <span className="text-1xl font-bold text-red-700">Login/SignUp</span>
           </Link>
         )}
-      </div>
       {isLoggedIn && user && (
-        <div className="flex items-center">
+        <div className="mx-4">
           <Avatar>
         <button className="flex items-center">
         <Link href="/userpage">
@@ -111,6 +112,7 @@ export function Header() {
         </Avatar>
       </div>
       )}
+      </div>
     </header>
   );
 }

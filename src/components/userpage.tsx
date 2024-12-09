@@ -11,14 +11,8 @@ import { Bell, CreditCard, Lock, Settings, User, Calendar } from 'lucide-react';
 
 type TabName = 'account' | 'reservations' | 'payment' | 'notifications' | 'security' | 'accessibility';
 
-const isLoggedIn = async () => {
-  if(!localStorage.getItem('token')){
-    window.location.replace('/login-page')
-  }
-}
-
 export default function Userpage() {
-  isLoggedIn();
+
   const [activeTab, setActiveTab] = useState<TabName>('account');
   const [userData, setUserData] = useState<any>(null);
   const [reservations, setReservations] = useState<any[]>([]);
@@ -30,7 +24,10 @@ export default function Userpage() {
 
   const fetchUserData = async () => {
     const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!token){
+      window.location.replace('/')
+    return;
+  }
 
     try {
       const response = await fetch('http://127.0.0.1:8000/users/me', {
@@ -79,9 +76,12 @@ export default function Userpage() {
       });
   
       if (response.ok) {
-        setConfirmationMessage('User information updated successfully.'); // Set success message
+        setConfirmationMessage('User information updated successfully. Logging out...'); // Set success message
         setErrorMessage(null); // Clear error message if any
         fetchUserData(); // Refresh user data
+        setTimeout(() => {
+          window.location.replace('/login-page'); // Redirect to login page after success
+        }, 2000);
       } else {
         setErrorMessage('Failed to update user information.'); // Set error message
         setConfirmationMessage(null); // Clear success message if any
@@ -89,9 +89,7 @@ export default function Userpage() {
     } catch (error) {
       setErrorMessage('Failed to update user information.'); // Handle error
       setConfirmationMessage(null); // Clear success message if any
-    }
-    window.location.replace('/')
-  };
+    }};
 
   useEffect(() => {
     fetchUserData();
@@ -146,7 +144,7 @@ export default function Userpage() {
                   onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
                 />
               </div>
-              <Button onClick={() => updateUser(userData)}>Update User Information</Button>
+              <Button onClick={() => updateUser(userData)}>Update User Information</Button> Note: You will be logged out.
             </>
           )}
         </CardContent>

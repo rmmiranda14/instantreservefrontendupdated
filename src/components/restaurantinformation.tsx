@@ -67,7 +67,7 @@ export function RestaurantInformation() {
         throw new Error(errorDetails.detail || 'Failed to confirm reservation.');
       }
 
-      setConfirmationMessage(`Reservation confirmed for ${selectedTime}!`);
+      setConfirmationMessage(`Reservation confirmed for ${selectedTime} for a party of ${partySize}!`);
       setErrorMessage(null); // Clear any previous error message
     } catch (error: any) {
       setErrorMessage(error.message || 'Failed to confirm reservation.');
@@ -168,7 +168,7 @@ export function RestaurantInformation() {
             {selectedTime && (
               <div className="mt-4 p-4 bg-primary/10 rounded-lg">
                 <p className="text-center font-semibold">
-                  You've selected {selectedTime} for your reservation.
+                  You've selected {selectedTime} for your reservation. What is your party size?
                 </p>
                 <div className="mt-2">
                   <input
