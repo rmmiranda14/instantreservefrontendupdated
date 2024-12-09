@@ -19,8 +19,27 @@ export default function Userpage() {
   const [loading, setLoading] = useState(true);
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null); 
+  const [reservationInfo, setReservationInfo] = useState<any>(null);
   
-  
+  const cancelReservation = async (reservationID: any) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/reservations/api/reservation/${reservationID}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `${reservationID}`,
+        },
+      });
+      if (response.ok) {
+       /*  fetchUserData(); // Refresh user data */
+        window.location.replace('')
+      }
+    } catch (error) {
+      console.error('Failed to cancel reservation:', error);
+    }
+  }
 
   const fetchUserData = async () => {
     const token = localStorage.getItem('token');
@@ -96,6 +115,41 @@ export default function Userpage() {
     fetchReservations();
   }, []);
 
+  const updateReservation = async (updatedReservation: any, reservationID: any) => {
+    const token = localStorage.getItem('token');
+     if (!token) return; 
+  
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/reservations/api/reservation/${reservationID}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `${reservationID}`,
+        },
+        body: JSON.stringify(updatedReservation),
+      });
+  
+      if (response.ok) {
+        setConfirmationMessage('Your reservation has been updated'); // Set success message
+        setErrorMessage(null); // Clear error message if any
+        fetchUserData(); // Refresh user data
+        setTimeout(() => {
+          window.location.replace('/userpage'); // Redirect to login page after success
+        }, 2000);
+      } else {
+        setErrorMessage('Failed to update your reservation.'); // Set error message
+        setConfirmationMessage(null); // Clear success message if any
+      }
+    } catch (error) {
+      setErrorMessage('Failed to update your reservation.'); // Handle error
+      setConfirmationMessage(null); // Clear success message if any
+    }};
+
+  useEffect(() => {
+    fetchUserData();
+    fetchReservations();
+  }, []);
+
   const tabContent: Record<TabName, React.ReactNode> = {
     account: (
       <Card>
@@ -157,10 +211,11 @@ export default function Userpage() {
         </CardHeader>
         <CardContent className="space-y-4">
           {reservations.length === 0 ? (
-            <p>You have no reservations.</p>
+            <p>You have no reservations. {reservations.length}</p>
           ) : (
             reservations.map((reservation, index) => (
               <div key={index} className="border p-4 rounded">
+                <p>{reservation.business_name}</p>
                 <p>Reservation Time: {reservation.reservation_time}</p>
                 <p>Party Size: {reservation.party_size}</p>
                 <p>Created At:{" "}
@@ -173,7 +228,19 @@ export default function Userpage() {
         hour12: true,
       })}
     </p>
-              </div>
+    <div className="space-y-2">
+    <Input
+                  id="party_size"
+                  defaultValue={reservationInfo?.party_size || 0}
+                  placeholder="Enter your new party size"
+                  onChange={(e) => setReservationInfo({...reservationInfo, party_size: e.target.value })}
+                />    
+    </div>
+    <div className= "flex item-center justify-between">
+    <Button onClick={() => updateReservation(reservationInfo, reservation.id)}>Update Party Size</Button>
+    <Button onClick={() => cancelReservation(reservation.id)}>Cancel Reservation</Button>
+    </div>
+    </div>
             ))
           )}
         </CardContent>

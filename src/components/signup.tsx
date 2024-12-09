@@ -36,7 +36,7 @@ export default function SignUpPage() {
           username,
           email,
           fullname,
-          phone: parseInt(phone, 10), // Convert to integer before sending
+          phone, // Convert to integer before sending
           password,
         }),
       });
@@ -106,6 +106,7 @@ export default function SignUpPage() {
               type="tel"
               placeholder="Phone Number"
               className="w-full px-3 py-2 border rounded-md"
+              maxLength={9}
               value={phone}
               onChange={handlePhoneChange} // Ensure only numbers are entered
               required

@@ -13,6 +13,7 @@ export function RestaurantInformation() {
   const [partySize, setPartySize] = useState<number>(2); // Default party size
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null); // New state for confirmation
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  
 
   const handleTimeSelection = (time: string) => {
     setSelectedTime(time);
@@ -47,6 +48,7 @@ export function RestaurantInformation() {
     }
 
     const payload = {
+      business_name: businessName,
       reservation_time: reservationTime,
       party_size: partySize,
       creation_date: new Date().toISOString(), // Current date and time
@@ -79,13 +81,13 @@ export function RestaurantInformation() {
     '11:30 AM', '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM',
     '5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM',
   ];
-
+  const businessName = "Example Location"
   return (
     <div className="min-h-screen flex flex-col">
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <div className="mb-8 mt-4">
-          <h2 className="text-3xl font-bold mb-2">Location Name 1</h2>
+          <h2 className="text-3xl font-bold mb-2">{businessName}</h2>
           <p className="text-gray-600">Location address Contact Phone Number</p>
         </div>
 
