@@ -9,6 +9,7 @@ export default function SignUpPage() {
   const [fullname, setFullname] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState(''); // New state for confirm password
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const router = useRouter();
@@ -25,6 +26,12 @@ export default function SignUpPage() {
     e.preventDefault();
     setError('');
     setSuccess(false);
+
+    // Validate confirm password
+    if (password !== confirmPassword) {
+      setError("Passwords do not match. Please try again.");
+      return;
+    }
 
     try {
       const response = await fetch('http://127.0.0.1:8000/users/users/', {
@@ -118,6 +125,16 @@ export default function SignUpPage() {
               className="w-full px-3 py-2 border rounded-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              className="w-full px-3 py-2 border rounded-md"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)} // Set confirm password state
               required
             />
           </div>
