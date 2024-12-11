@@ -9,7 +9,8 @@ export default function SignUpPage() {
   const [fullname, setFullname] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // New state for confirm password
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const router = useRouter();
@@ -22,14 +23,55 @@ export default function SignUpPage() {
     }
   };
 
+  const validatePasswordStrength = (password: string) => {
+    if (password.length < 7) {
+      setPasswordStrength('Password must be at least 7 characters');
+      return;
+    }
+    // Regular Expressions for Password Strength
+    const lengthCriteria = password.length >= 10;
+    const uppercaseCriteria = /[A-Z]/.test(password);
+    const lowercaseCriteria = /[a-z]/.test(password);
+    const numberCriteria = /\d/.test(password);
+    const specialCharCriteria = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    const passedCriteria = [
+      lengthCriteria,
+      uppercaseCriteria,
+      lowercaseCriteria,
+      numberCriteria,
+      specialCharCriteria,
+    ].filter(Boolean).length;
+
+    if (passedCriteria <= 2) {
+      setPasswordStrength('Weak');
+    } else if (passedCriteria === 3 || passedCriteria === 4) {
+      setPasswordStrength('Moderate');
+    } else if (passedCriteria === 5) {
+      setPasswordStrength('Strong');
+    } else {
+      setPasswordStrength('');
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setPassword(input);
+    validatePasswordStrength(input);
+  };
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess(false);
 
-    // Validate confirm password
     if (password !== confirmPassword) {
-      setError("Passwords do not match. Please try again.");
+      setError("Passwords do not match!");
+      return;
+    }
+
+    if (password.length < 7) {
+      setError('Password must be at least 7 characters long.');
       return;
     }
 
@@ -43,7 +85,7 @@ export default function SignUpPage() {
           username,
           email,
           fullname,
-          phone: parseInt(phone, 10), // Convert to integer before sending
+          phone: parseInt(phone, 10),
           password,
         }),
       });
@@ -54,7 +96,7 @@ export default function SignUpPage() {
 
       setSuccess(true);
       setTimeout(() => {
-        router.push('/login-page'); // Redirect to login page after success
+        router.push('/login-page');
       }, 2000);
     } catch (err) {
       if (err instanceof Error) {
@@ -114,7 +156,7 @@ export default function SignUpPage() {
               placeholder="Phone Number"
               className="w-full px-3 py-2 border rounded-md"
               value={phone}
-              onChange={handlePhoneChange} // Ensure only numbers are entered
+              onChange={handlePhoneChange}
               required
             />
           </div>
@@ -124,9 +166,22 @@ export default function SignUpPage() {
               placeholder="Password"
               className="w-full px-3 py-2 border rounded-md"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
             />
+            {password && (
+              <p
+                className={`mt-2 text-sm ${
+                  passwordStrength === 'Strong'
+                    ? 'text-green-500'
+                    : passwordStrength === 'Moderate'
+                    ? 'text-yellow-500'
+                    : 'text-red-500'
+                }`}
+              >
+                {passwordStrength} Password
+              </p>
+            )}
           </div>
           <div>
             <input
@@ -134,7 +189,7 @@ export default function SignUpPage() {
               placeholder="Confirm Password"
               className="w-full px-3 py-2 border rounded-md"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)} // Set confirm password state
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
