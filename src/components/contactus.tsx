@@ -43,10 +43,11 @@ export default function ContactUs() {
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <h2 className="text-2xl font-bold text-center mb-2 mt-2">Contact Us</h2>
         
-        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6 p-6 border rounded-lg">
-          <div className="space-y-2">
+        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6 p-6 border rounded-lg border-red-700">
+          <div className="space-y-2 border-red-200">
             <Label htmlFor="fullName">Full Name</Label>
             <Input
+              className='border-red-700'
               id="fullName"
               name="fullName"
               required
@@ -56,6 +57,7 @@ export default function ContactUs() {
           <div className="space-y-2">
             <Label htmlFor="email">Email Address</Label>
             <Input
+              className='border-red-700'
               id="email"
               name="email"
               type="email"
@@ -66,6 +68,7 @@ export default function ContactUs() {
           <div className="space-y-2">
             <Label htmlFor="phone">Phone Number</Label>
             <Input
+              className='border-red-700'
               id="phone"
               name="phone"
               type="tel"
@@ -78,7 +81,7 @@ export default function ContactUs() {
             <Textarea
               id="message"
               name="message"
-              className="min-h-[150px]"
+              className="min-h-[150px] border-red-700 "
               required
             />
           </div>
